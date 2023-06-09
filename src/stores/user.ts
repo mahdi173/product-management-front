@@ -1,34 +1,24 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import httpService from '~/services/http-service'
+import { getUser as loadUserData } from '~/composables/storage'
+import { User} from '~/models/user'
 
 export const useUserStore = defineStore('user', () => {
-  /**
-   * Current name of the user.
-   */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
+  httpService.init()
 
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
+  const user = ref<User>()
 
-  /**
-   * Changes the current name of the user and saves the one that was used
-   * before.
-   *
-   * @param name - new name to set
-   */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
-
-    savedName.value = name
+  const loadUser = async () => {
+    const userData = loadUserData()
+    if (userData !== null) {
+      user.value = userData
+    }
   }
 
   return {
-    setNewName,
-    otherNames,
-    savedName,
+    user, loadUser
   }
 })
 
 if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useUserStore as any, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
