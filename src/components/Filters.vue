@@ -80,16 +80,25 @@
             </div>
             </div>
 
-            <!-- Apply Filter Button (Large Screen) -->
+            <div class="relative">
+                <div class="py-9 px-1 bottom-0">
+                    <button @click="reset()"
+                            class="hover:bg-gray-400 dark:bg-white dark:hover:bg-gray-100 focus:ring focus:ring-offset-2 focus:ring-gray-800 text-base leading-4 font-medium py-4 px-10 text-white bg-gray-400"
+                            type="button">
+                            Reset Filter
+                    </button>
+                </div>
+                <!-- Apply Filter Button (Large Screen) -->
 
-            <div class="hidden md:block absolute right-0 bottom-0 md:py-10 lg:px-20 md:px-6 py-9 px-4">
-            <button @click="applyFilters()" class="hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:ring focus:ring-offset-2 focus:ring-gray-800 text-base leading-4 font-medium py-4 px-10 text-white bg-gray-800">Apply Filter</button>
-            </div>
+                <div class="hidden md:block absolute right-0 bottom-0 py-9 px-4">
+                    <button @click="applyFilters()" class="hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:ring focus:ring-offset-2 focus:ring-gray-800 text-base leading-4 font-medium py-4 px-10 text-white bg-gray-800">Apply Filter</button>
+                </div>
 
-            <!-- Apply Filter Button (Table or lower Screen) -->
+                <!-- Apply Filter Button (Table or lower Screen) -->
 
-            <div class="block md:hidden w-full mt-10">
-            <button @click="applyFilters()" class="w-50 hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:ring focus:ring-offset-2 focus:ring-gray-800 text-base leading-4 font-medium py-4 px-10 text-white bg-gray-800">Apply Filter</button>
+                <div class="block md:hidden w-full mt-10">
+                     <button @click="applyFilters()" class="w-50 hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:ring focus:ring-offset-2 focus:ring-gray-800 text-base leading-4 font-medium py-4 px-10 text-white bg-gray-800">Apply Filter</button>
+                </div>
             </div>
         </div>
     </div>    
@@ -105,7 +114,7 @@
     const priceErrorMsg = ref("")
     const showPriceError = ref(false)
     
-    const emit = defineEmits(["filters"]);
+    const emit = defineEmits(["filters", "reset"]);
     const typeStore= useTypeStore();
     const sizeStore= useSizeStore();
 
@@ -113,6 +122,11 @@
         await typeStore.getAllTypes();
         await sizeStore.getAllSizes();
     });
+
+    const reset = async () => {
+        let resetForm= true;
+        emit("reset", resetForm);
+    };
 
     const showFilters= () => {
         showFilter.value= true;
@@ -143,7 +157,7 @@
         if(selectedType.value){
             filters['type']=  selectedType.value;
         }
-        console.log(maxPrice.value, minPrice.value);
+
         if(maxPrice.value && validatePrice()){
             filters['price']=   minPrice.value+','+maxPrice.value;
         }

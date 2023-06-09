@@ -22,6 +22,13 @@ const getData = async () => {
   await productStore.getAllProducts();
 };
 
+async function resetFilters() {
+  productStore.params.page = 1;
+  productStore.params.filters = [];
+
+  await productStore.getAllProducts();
+};
+
 function edit(id: number) {
   gotoPath(`products/edit/${id}`);
 }
@@ -64,6 +71,7 @@ async function onPageChange(params: any) {
     </div>
     <Filters
           @filters="filter"
+          @reset="resetFilters"
     />
     <div v-if="isLoading" class="pt-16">
       <p>Loading...</p>
