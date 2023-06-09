@@ -9,11 +9,28 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddIcon: typeof import('./components/Icons/AddIcon.vue')['default']
+    CloseIcon: typeof import('./components/Icons/CloseIcon.vue')['default']
+    ConfirmationModal: typeof import('./components/ConfirmationModal.vue')['default']
+    DeleteIcon: typeof import('./components/Icons/DeleteIcon.vue')['default']
+    DropDownIcon: typeof import('./components/Icons/DropDownIcon.vue')['default']
+    EditIcon: typeof import('./components/Icons/EditIcon.vue')['default']
+    FilterCloseIcon: typeof import('./components/Icons/FilterCloseIcon.vue')['default']
+    FilterIcon: typeof import('./components/Icons/FilterIcon.vue')['default']
+    Filters: typeof import('./components/Filters.vue')['default']
+    FormSelect: typeof import('./components/Form/FormSelect.vue')['default']
+    Header: typeof import('./components/Home/Header.vue')['default']
+    LinkButton: typeof import('./components/Form/LinkButton.vue')['default']
+    Pagination: typeof import('./components/Pagination.vue')['default']
+    Product: typeof import('./components/Product.vue')['default']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchIcon: typeof import('./components/Icons/SearchIcon.vue')['default']
+    SizeIcon: typeof import('./components/Icons/SizeIcon.vue')['default']
     TheCounter: typeof import('./components/TheCounter.vue')['default']
     TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheInput: typeof import('./components/TheInput.vue')['default']
+    TypeIcon: typeof import('./components/Icons/TypeIcon.vue')['default']
   }
 }
