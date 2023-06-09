@@ -32,7 +32,7 @@ export const install: UserModule = ({ isClient, router }) => {
                 return { name: 'Login' }
             }
 
-            if(to.name == "home"){
+            if(getToken() && to.name == "home"){
                 return { name: 'products' }
             }
         })
